@@ -1,4 +1,4 @@
-import type { Config } from "tailwindcss";
+import type { Config } from "tailwindcss"
 
 const config = {
   darkMode: ["class"],
@@ -22,6 +22,10 @@ const config = {
         primary: "#F4A88E",
         secondary: "#E4E4E4",
       },
+      backgroundImage: {
+        "welcome-background": "url('/welcome_background.jpg')",
+        "welcome-center": "url('/welcome_center.jpg')",
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -39,6 +43,6 @@ const config = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config;
+} satisfies Config
 
-export default config;
+export default config
