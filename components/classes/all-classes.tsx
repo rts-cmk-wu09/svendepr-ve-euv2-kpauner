@@ -6,6 +6,7 @@ import CardSmall from "./card-small"
 import Bounded from "../global/bounded"
 import CardFeatured from "../global/card-featured"
 import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel"
+import { Icons } from "../icons"
 
 export default function AllClasses() {
   const {
@@ -16,7 +17,13 @@ export default function AllClasses() {
     queryKey: ["classes", { limit: 10 }],
     queryFn: getClasses,
   })
-  if (isLoading) return "Loading..."
+  if (isLoading) {
+    return (
+      <div className="flex h-full items-center justify-center">
+        <Icons.spinner className="block h-8 w-8" />
+      </div>
+    )
+  }
   if (error) return "An error has occurred: " + error.message
   console.log("RECORDS", courses)
   return (
@@ -35,31 +42,35 @@ export default function AllClasses() {
             />
           ))}
       </Bounded>
-      <Bounded className="pt-10">
-        <h2 className="font-bold">Classes for you</h2>
-        <div>
-          <Carousel>
-            <CarouselContent>
-              {courses
-                ?.filter((course) => !course.isFeatured)
-                .map((course) => (
-                  <CarouselItem
-                    key={course.assetId}
-                    className="aspect-square basis-1/2 overflow-hidden bg-amber-500"
-                  >
-                    <CardSmall
-                      title={course.className}
-                      rating={5}
-                      image={course.assetId}
-                      collectionId={course.collectionId}
-                      id={course.id}
-                    />
-                  </CarouselItem>
-                ))}
-            </CarouselContent>
-          </Carousel>
-        </div>
-      </Bounded>
+      <section className="pt-4">
+        <h2 className="py-4 pl-4 text-xl font-bold">Classes for you</h2>
+
+        <Carousel
+          className="pl-4"
+          opts={{
+            align: "start",
+          }}
+        >
+          <CarouselContent>
+            {courses
+              ?.filter((course) => !course.isFeatured)
+              .map((course) => (
+                <CarouselItem
+                  key={course.assetId}
+                  className="aspect-square basis-[40%] overflow-hidden"
+                >
+                  <CardSmall
+                    title={course.className}
+                    rating={5}
+                    image={course.assetId}
+                    collectionId={course.collectionId}
+                    id={course.id}
+                  />
+                </CarouselItem>
+              ))}
+          </CarouselContent>
+        </Carousel>
+      </section>
     </section>
   )
 }

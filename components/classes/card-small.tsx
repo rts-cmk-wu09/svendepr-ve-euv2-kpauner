@@ -30,11 +30,12 @@ export default function CardSmall({
         alt={image}
         className="h-full w-full object-cover"
       />
-      <header className="absolute bottom-0 w-full bg-primary p-2">
-        <h2 className="text-clip text-nowrap font-bold">{title}</h2>
-        <div>
-          {rating && <p>{rating}</p>}
-          <Icons.star className="h-4" />
+      <header className="absolute bottom-0 w-full space-y-1 rounded-tr-3xl bg-primary p-2">
+        <h2 className="text-clip text-nowrap text-xs font-bold">{title}</h2>
+        <div className="flex gap-1">
+          {[...Array(rating)].map((_, i) => (
+            <Icons.star key={i} className="h-4" />
+          ))}
         </div>
       </header>
     </article>
