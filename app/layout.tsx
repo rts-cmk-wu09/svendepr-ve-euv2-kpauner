@@ -22,8 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn("relative h-full antialiased", poppins.className)}>
-        <Header />
-        <main className="relative flex min-h-screen flex-col">{children}</main>
+        <div className="relative flex min-h-screen flex-col">{children}</div>
       </body>
     </html>
   )
