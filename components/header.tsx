@@ -40,37 +40,40 @@ const items = {
   },
 }
 
-export default function Header() {
+export default function Header({ title }: { title?: string }) {
   const [toggleNav, setToggleNav] = useCycle(false, true)
 
   return (
-    <header className="p-8">
-      <nav className="relative z-40 flex">
-        <motion.button
-          animate={toggleNav ? "open" : "closed"}
-          onClick={() => setToggleNav()}
-          className="ml-auto flex cursor-pointer flex-col items-end gap-1"
-        >
-          <motion.span
-            animate={{ rotate: toggleNav ? 45 : 0, y: toggleNav ? 12 : 0, x: toggleNav ? 2 : 0 }}
-            className="block h-1 w-6 rounded-full bg-secondary"
-          />
-          <motion.span
-            animate={{ opacity: toggleNav ? 0 : 1 }}
-            className="block h-1 w-6 rounded-full bg-secondary"
-          />
-          <motion.span
-            animate={{
-              rotate: toggleNav ? -45 : 0,
-              y: toggleNav ? -12 : 0,
-              x: toggleNav ? -2 : 0,
-              scaleX: toggleNav ? 1 : 0.5,
-            }}
-            className="block h-1 w-6 rounded-full bg-secondary"
-            style={{ transformOrigin: "right" }}
-          ></motion.span>
-        </motion.button>
-      </nav>
+    <header className="px-4 py-8">
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl tracking-tight text-black">{title}</h1>
+        <nav className="relative z-40 flex">
+          <motion.button
+            animate={toggleNav ? "open" : "closed"}
+            onClick={() => setToggleNav()}
+            className="ml-auto flex cursor-pointer flex-col items-end gap-1"
+          >
+            <motion.span
+              animate={{ rotate: toggleNav ? 45 : 0, y: toggleNav ? 12 : 0, x: toggleNav ? 2 : 0 }}
+              className="block h-1 w-6 rounded-full bg-secondary"
+            />
+            <motion.span
+              animate={{ opacity: toggleNav ? 0 : 1 }}
+              className="block h-1 w-6 rounded-full bg-secondary"
+            />
+            <motion.span
+              animate={{
+                rotate: toggleNav ? -45 : 0,
+                y: toggleNav ? -12 : 0,
+                x: toggleNav ? -2 : 0,
+                scaleX: toggleNav ? 1 : 0.5,
+              }}
+              className="block h-1 w-6 rounded-full bg-secondary"
+              style={{ transformOrigin: "right" }}
+            ></motion.span>
+          </motion.button>
+        </nav>
+      </div>
       <motion.aside
         initial="initial"
         animate={toggleNav ? "enter" : "exit"}

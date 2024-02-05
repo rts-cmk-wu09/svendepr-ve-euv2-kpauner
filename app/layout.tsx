@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google"
 import "./globals.css"
 import { cn } from "@/lib/utils"
 import Header from "@/components/header"
+import Providers from "@/lib/providers"
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -22,7 +23,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn("relative h-full antialiased", poppins.className)}>
-        <div className="relative flex min-h-screen flex-col">{children}</div>
+        <div className="relative flex min-h-screen flex-col">
+          <Providers>{children}</Providers>
+        </div>
       </body>
     </html>
   )
