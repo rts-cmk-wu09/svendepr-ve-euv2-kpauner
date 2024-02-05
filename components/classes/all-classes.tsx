@@ -36,7 +36,6 @@ export default function AllClasses() {
             <CardFeatured
               key={course.assetId}
               title={course.className}
-              rating={5}
               image={course.assetId}
               collectionId={course.collectionId}
               id={course.id}
@@ -62,7 +61,6 @@ export default function AllClasses() {
                 >
                   <CardSmall
                     title={course.className}
-                    rating={5}
                     image={course.assetId}
                     collectionId={course.collectionId}
                     id={course.id}
