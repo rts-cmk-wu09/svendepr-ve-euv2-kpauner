@@ -44,7 +44,7 @@ export default function Header({ title }: { title?: string }) {
   const [toggleNav, setToggleNav] = useCycle(false, true)
 
   return (
-    <header className="px-4 py-8">
+    <header className="px-4 pb-8 pt-12">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl tracking-tight text-black">{title}</h1>
         <nav className="relative z-40 flex">
