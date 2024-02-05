@@ -5,11 +5,12 @@ import React from "react"
 import { Icons } from "../icons"
 import { useQuery } from "@tanstack/react-query"
 import { getRatingById } from "@/lib/queries"
+import { calculateRating } from "@/lib/utils"
+import Ratings from "./ratings"
 
 interface CardFeaturedProps {
   title: string
   className?: string
-  rating: number
   image: string
   collectionId: string
   id: string
@@ -22,11 +23,18 @@ export default function CardFeatured({
   collectionId,
   id,
 }: CardFeaturedProps) {
-  const { data: rating } = useQuery({
-    queryKey: ["rating", { id }],
+  const { data: ratings } = useQuery({
+    queryKey: ["ratings", { id }],
     queryFn: getRatingById,
   })
-  console.log("RATING", rating, id)
+  console.log("RATING", ratings, id)
+
+  let averageRating = 0
+  if (ratings) {
+    averageRating = calculateRating(ratings)
+  }
+
+  console.log("ave", averageRating)
   return (
     <article className={cn("relative h-[30rem] overflow-hidden rounded-2xl", className)}>
       <Image
@@ -39,9 +47,7 @@ export default function CardFeatured({
       <header className="absolute bottom-0 w-2/3 space-y-1 rounded-tr-[3rem] bg-primary p-4">
         <h2 className="text-clip text-nowrap font-bold">{title}</h2>
         <div className="flex gap-1">
-          {[...Array(rating)].map((_, i) => (
-            <Icons.star key={i} className="h-4" />
-          ))}
+          <Ratings averageRating={averageRating} />
         </div>
       </header>
     </article>

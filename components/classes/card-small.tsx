@@ -1,26 +1,29 @@
 "use client"
-import { cn } from "@/lib/utils"
-import Image from "next/image"
 import React from "react"
-import { Icons } from "../icons"
+import { calculateRating, cn } from "@/lib/utils"
+import Image from "next/image"
+import Ratings from "../global/ratings"
+import { useQuery } from "@tanstack/react-query"
+import { getRatingById } from "@/lib/queries"
 
 interface CardSmallProps {
   title: string
   className?: string
-  rating: number
   image: string
   collectionId: string
   id: string
 }
 
-export default function CardSmall({
-  title,
-  className,
-  image,
-  rating,
-  collectionId,
-  id,
-}: CardSmallProps) {
+export default function CardSmall({ title, className, image, collectionId, id }: CardSmallProps) {
+  const { data: ratings } = useQuery({
+    queryKey: ["ratings", { id }],
+    queryFn: getRatingById,
+  })
+
+  let averageRating = 0
+  if (ratings) {
+    averageRating = calculateRating(ratings)
+  }
   return (
     <article className={cn("relative h-full w-full overflow-hidden rounded-2xl", className)}>
       <Image
@@ -33,9 +36,7 @@ export default function CardSmall({
       <header className="absolute bottom-0 w-full space-y-1 rounded-tr-3xl bg-primary p-2">
         <h2 className="text-clip text-nowrap text-xs font-bold">{title}</h2>
         <div className="flex gap-1">
-          {[...Array(rating)].map((_, i) => (
-            <Icons.star key={i} className="h-4" />
-          ))}
+          <Ratings averageRating={averageRating} />
         </div>
       </header>
     </article>
