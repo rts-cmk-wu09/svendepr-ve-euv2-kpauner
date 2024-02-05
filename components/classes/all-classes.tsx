@@ -1,5 +1,5 @@
 "use client"
-import { getClasses } from "@/lib/queries"
+import { getClasses, getRatingById } from "@/lib/queries"
 import { useQuery } from "@tanstack/react-query"
 import React from "react"
 import CardSmall from "./card-small"
@@ -17,6 +17,7 @@ export default function AllClasses() {
     queryKey: ["classes", { limit: 10 }],
     queryFn: getClasses,
   })
+
   if (isLoading) {
     return (
       <div className="flex h-full items-center justify-center">
@@ -25,7 +26,7 @@ export default function AllClasses() {
     )
   }
   if (error) return "An error has occurred: " + error.message
-  console.log("RECORDS", courses)
+
   return (
     <section>
       <Bounded>

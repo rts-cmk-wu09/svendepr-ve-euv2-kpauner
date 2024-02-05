@@ -3,6 +3,8 @@ import { cn } from "@/lib/utils"
 import Image from "next/image"
 import React from "react"
 import { Icons } from "../icons"
+import { useQuery } from "@tanstack/react-query"
+import { getRatingById } from "@/lib/queries"
 
 interface CardFeaturedProps {
   title: string
@@ -17,10 +19,14 @@ export default function CardFeatured({
   title,
   className,
   image,
-  rating,
   collectionId,
   id,
 }: CardFeaturedProps) {
+  const { data: rating } = useQuery({
+    queryKey: ["rating", { id }],
+    queryFn: getRatingById,
+  })
+  console.log("RATING", rating, id)
   return (
     <article className={cn("relative h-[30rem] overflow-hidden rounded-2xl", className)}>
       <Image
