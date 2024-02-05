@@ -19,8 +19,8 @@ const config = {
     },
     extend: {
       colors: {
-        primary: "#F4A88E",
-        secondary: "#E4E4E4",
+        primary: "#F1C40E",
+        secondary: "#898989",
       },
       backgroundImage: {
         "welcome-background": "url('/welcome_background.jpg')",
