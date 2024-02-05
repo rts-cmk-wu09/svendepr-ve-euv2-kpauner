@@ -11,6 +11,7 @@ export type Class = {
   maxParticipants: string
   trainerId: string
   updated: string
+  isFeatured: boolean
 }
 export type ClassesTypes = {
   json: Class[]
