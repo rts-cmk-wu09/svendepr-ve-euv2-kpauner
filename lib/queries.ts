@@ -1,6 +1,7 @@
 import pb from "@/lib/pocketbase"
 import { Class, ClassesTypes } from "@/types/classes"
 import { Rating } from "@/types/ratings"
+import { UserClasses } from "@/types/user-classes"
 
 pb.autoCancellation(false)
 
@@ -35,5 +36,16 @@ export async function getRatingById({ queryKey }: getRatingByIdProps) {
   const [_key, { id }] = queryKey
   return pb.collection("ratings").getFullList<Rating>({
     filter: 'classId = "' + id + '"',
+  })
+}
+
+type getMyClassesProps = {
+  queryKey: [string, { id: string; sort?: string; limit?: number; fields?: string }]
+}
+export async function getMyClasses({ queryKey }: getMyClassesProps) {
+  const [_key, { id }] = queryKey
+  return pb.collection("user_classes").getFullList<UserClasses>({
+    filter: 'userId = "' + id + '"',
+    expand: "classId",
   })
 }
