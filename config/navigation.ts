@@ -7,8 +7,4 @@ export const nav = [
     name: "Search",
     path: "/search",
   },
-  {
-    name: "My Schedule",
-    path: "/myschedule",
-  },
 ]

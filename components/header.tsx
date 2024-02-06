@@ -1,9 +1,12 @@
 "use client"
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { motion, useCycle } from "framer-motion"
 import Link from "next/link"
 import { nav } from "@/config/navigation"
 import { Button } from "./ui/button"
+import { ArrowLeft } from "lucide-react"
+import { usePathname, useRouter } from "next/navigation"
+import pb from "@/lib/pocketbase"
 
 const menuSlide = {
   initial: {
@@ -40,12 +43,26 @@ const items = {
   },
 }
 
-export default function Header({ title }: { title?: string }) {
+export default function Header({ title }: { title?: string; back?: boolean }) {
+  const [href, setHref] = useState("")
   const [toggleNav, setToggleNav] = useCycle(false, true)
+  const pathName = usePathname()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (pb.authStore.model) {
+      setHref(pb.authStore.model.id)
+    }
+  }, [])
 
   return (
     <header className="px-4 pb-8 pt-12">
       <div className="flex items-center justify-between">
+        {pathName !== "/classes" && (
+          <Link href="/">
+            <ArrowLeft />
+          </Link>
+        )}
         <h1 className="text-2xl tracking-tight text-black">{title}</h1>
         <nav className="relative z-40 flex">
           <motion.button
@@ -92,7 +109,26 @@ export default function Header({ title }: { title?: string }) {
               </Link>
             </motion.span>
           ))}
-          <Button variant="link">Signout</Button>
+          <motion.span variants={items}>
+            <Link
+              href={href}
+              onClick={() => setToggleNav()}
+              className="duration-600 block text-center text-3xl uppercase tracking-tight text-black transition-colors hover:text-neutral-500 md:text-5xl"
+            >
+              My schedule
+            </Link>
+          </motion.span>
+          <Button
+            onClick={async () => {
+              pb.authStore.clear()
+              router.replace("/")
+            }}
+            type="submit"
+            variant="link"
+            className="duration-600 block text-center text-3xl font-normal uppercase tracking-tight text-black transition-colors hover:text-neutral-500 md:text-5xl"
+          >
+            Signout
+          </Button>
         </div>
       </motion.aside>
     </header>

@@ -1,14 +1,23 @@
 "use client"
 import { getClasses, getRatingById } from "@/lib/queries"
 import { useQuery } from "@tanstack/react-query"
-import React from "react"
+import React, { useEffect } from "react"
 import CardSmall from "./card-small"
 import Bounded from "../global/bounded"
 import CardFeatured from "../global/card-featured"
 import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel"
 import { Icons } from "../icons"
+import { useRouter } from "next/navigation"
+import pb from "@/lib/pocketbase"
 
 export default function AllClasses() {
+  const router = useRouter()
+  const authStatus = pb.authStore.isValid
+  useEffect(() => {
+    if (!authStatus) {
+      router.push("/")
+    }
+  }, [authStatus, router])
   const {
     data: courses,
     isLoading,
