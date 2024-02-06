@@ -29,6 +29,13 @@ export async function getClasses({ queryKey }: getClassesParams) {
   })
 }
 
+export async function getClassById({ queryKey }: getMyClassesProps) {
+  const [_key, { id }] = queryKey
+  return pb.collection("classes").getFullList<UserClasses>({
+    filter: 'userId = "' + id + '"',
+  })
+}
+
 type getRatingByIdProps = {
   queryKey: [string, { id: string; sort?: string; limit?: number; fields?: string }]
 }
