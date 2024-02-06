@@ -56,7 +56,7 @@ export default function Header({ title }: { title?: string; back?: boolean }) {
   }, [])
 
   return (
-    <header className="px-4 pb-8 pt-12">
+    <header className="z-10 px-4 pb-8 pt-12">
       <div className="flex items-center justify-between">
         {pathName !== "/classes" && (
           <Link href="/">
