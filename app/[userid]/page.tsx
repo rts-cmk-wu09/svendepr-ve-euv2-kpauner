@@ -6,7 +6,6 @@ export default function UserSchedulePage({ params }: { params: { userid: string 
   return (
     <>
       <Header title="My Schedule" />
-      {params.userid}
       <MyClasses id={params.userid} />
     </>
   )
