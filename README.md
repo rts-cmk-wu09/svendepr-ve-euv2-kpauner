@@ -6,7 +6,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/github_username/repo_name">
-    <img src="https://65c3e3b565c172184a802299--quiet-licorice-a74f42.netlify.app//logo.png" alt="Logo" width="80" height="80">
+    <img src="https://65c3e3b565c172184a802299--quiet-licorice-a74f42.netlify.app/logo.png" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">Fitness verden</h3>
@@ -32,17 +32,8 @@
     </li>
     <li>
       <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
