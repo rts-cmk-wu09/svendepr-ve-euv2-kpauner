@@ -1,18 +1,38 @@
 "use client"
 import React from "react"
 import { Icons } from "../icons"
-import { getClassById } from "@/lib/queries"
+import { getClassById, getRatingById } from "@/lib/queries"
 import { useQuery } from "@tanstack/react-query"
 import Bounded from "../global/bounded"
 import Ratings from "../global/ratings"
 import { Button } from "../ui/button"
 import Link from "next/link"
+import Image from "next/image"
+import pb from "@/lib/pocketbase"
+import { calculateRating } from "@/lib/utils"
 
 export default function ClassDetails({ id }: { id: string }) {
-  const { data: classData, isLoading } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["class-by-id", { id }],
     queryFn: getClassById,
   })
+
+  const { data: ratings } = useQuery({
+    queryKey: ["ratings", { id }],
+    queryFn: getRatingById,
+  })
+
+  if (!data) {
+    return <div>Class not found</div>
+  }
+
+  const classdetails = data[0]
+
+  let averageRating = 0
+  if (ratings) {
+    averageRating = calculateRating(ratings)
+  }
+
   if (isLoading) {
     return (
       <div className="flex h-full items-center justify-center">
@@ -20,27 +40,62 @@ export default function ClassDetails({ id }: { id: string }) {
       </div>
     )
   }
-  console.log(classData)
+
   return (
     <>
-      <Bounded className="flex h-[50vh] flex-col justify-end bg-welcome-background bg-[length:1400px] bg-top">
-        <h1 className="max-w-xs text-4xl font-bold tracking-wide text-primary">Believe Yourself</h1>
-        <div className="flex items-center justify-between pb-10">
-          <div className="flex gap-2">
-            <Ratings averageRating={3} className="fill-primary" />
+      <div className="absolute flex h-full w-full flex-grow flex-col">
+        <section
+          className="flex h-[50vh] flex-col justify-end bg-cover bg-center"
+          style={{
+            backgroundImage: `url(${process.env.NEXT_PUBLIC_PB_URL}/api/files/${classdetails.collectionId}/${classdetails.id}/${classdetails.assetId})`,
+          }}
+        >
+          <div className="bg-gradient-to-t from-black/60 to-transparent px-4">
+            <h1 className="max-w-xs pb-8 text-4xl font-bold tracking-wide text-primary">
+              {classdetails.className}
+            </h1>
+            <div className="flex items-center justify-between pb-10">
+              <div className="flex gap-2">
+                <Ratings averageRating={averageRating} className="fill-primary" />
+              </div>
+              <div>
+                <Button size="lg" variant="outline" className="w-24 uppercase">
+                  Rate
+                </Button>
+              </div>
+            </div>
           </div>
-          <div>
-            <Button size="lg" variant="outline" className="w-24 uppercase">
-              Rate
+        </section>
+        <Bounded className="flex flex-grow flex-col justify-between py-6">
+          <section>
+            <div className="flex gap-2 pb-4 font-semibold">
+              <span>{classdetails.classDay}</span>-<span>{classdetails.classTime}</span>
+            </div>
+            <p>{classdetails.classDescription}</p>
+          </section>
+          <section>
+            <h2 className="pb-4 text-xl font-bold">Trainer</h2>
+            <div className="relative flex">
+              <Image
+                height={150}
+                width={150}
+                src={`${process.env.NEXT_PUBLIC_PB_URL}/api/files/${classdetails.expand.trainerId.collectionId}/${classdetails.expand.trainerId.id}/${classdetails.expand.trainerId.avatar}`}
+                alt={classdetails.expand.trainerId.name}
+                className="aspect-square h-32 w-32 rounded-xl object-cover"
+              />
+              <h3 className="pl-6 pt-6 font-bold">{classdetails.expand.trainerId.name}</h3>
+            </div>
+          </section>
+          {pb.authStore.isValid && (
+            <Button
+              size="lg"
+              className="mb-8 w-full font-semibold uppercase tracking-wider text-black"
+            >
+              <Link href="/login">Sign up</Link>
             </Button>
-          </div>
-        </div>
-      </Bounded>
-      <Bounded className="flex flex-grow flex-col items-center justify-end bg-welcome-center bg-[length:700px] bg-top">
-        <Button size="lg" className="mb-8 w-full font-semibold uppercase tracking-wider text-black">
-          <Link href="/login">Start training</Link>
-        </Button>
-      </Bounded>
+          )}
+        </Bounded>
+      </div>
     </>
   )
 }

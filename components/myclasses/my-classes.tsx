@@ -18,7 +18,7 @@ export default function MyClasses({ id }: { id: string }) {
       </div>
     )
   }
-  console.log(schedules)
+
   return (
     <Bounded className="flex flex-col gap-4">
       {schedules &&

@@ -28,14 +28,12 @@ export default function CardFeatured({
     queryKey: ["ratings", { id }],
     queryFn: getRatingById,
   })
-  console.log("RATING", ratings, id)
 
   let averageRating = 0
   if (ratings) {
     averageRating = calculateRating(ratings)
   }
 
-  console.log("ave", averageRating)
   return (
     <Link href={`/classes/${id}`}>
       <article className={cn("relative h-[30rem] overflow-hidden rounded-2xl", className)}>

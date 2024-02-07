@@ -1,11 +1,5 @@
-import Header from "@/components/header"
 import React from "react"
 
 export default function ClassesLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <>
-      <Header title="Popular classes" />
-      {children}
-    </>
-  )
+  return <>{children}</>
 }

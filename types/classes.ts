@@ -1,3 +1,4 @@
+import { UserType } from "@/types/user"
 export type Class = {
   assetId: string
   classDay: string
@@ -16,3 +17,5 @@ export type Class = {
 export type ClassesTypes = {
   json: Class[]
 }
+
+export type ClassWithTrainer = Class & { expand: { trainerId: UserType } }
