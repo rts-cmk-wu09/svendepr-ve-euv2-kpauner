@@ -2,47 +2,21 @@
 
 <a name="readme-top"></a>
 
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
--->
-
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
-
-[![Contributors][contributors-shield]][contributors-url] [![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url] [![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url] [![LinkedIn][linkedin-shield]][linkedin-url]
-
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
   <a href="https://github.com/github_username/repo_name">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="https://65c3e3b565c172184a802299--quiet-licorice-a74f42.netlify.app//logo.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">project_title</h3>
+<h3 align="center">Fitness verden</h3>
 
   <p align="center">
-    project_description
+    Exams project frontend developer at RTS 2013
     <br />
-    <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
+    <a href="https://65c3e3b565c172184a802299--quiet-licorice-a74f42.netlify.app/"><strong>Explore the website »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/github_username/repo_name">View Demo</a>
-    ·
-    <a href="https://github.com/github_username/repo_name/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/github_username/repo_name/issues">Request Feature</a>
   </p>
 </div>
 
@@ -78,9 +52,10 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace
-with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`,
-`linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
+Fitness Verden is a small chain of fitness centers that is undergoing a major expansion. The company
+wants to offer their customers a digital experience that will help them increase enrollment in their
+fitness classes. Fitness Verden has commissioned a mobile web app where it is possible for users to
+find and sign up for different classes held in the fitness centers.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -88,32 +63,40 @@ with your text editor for the following: `github_username`, `repo_name`, `twitte
 
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally. To get a
-local copy up and running follow these simple example steps.
+Clone the repository, install the dependencies with npm install. The project was made with
+pocketbase as backend so you will need to add environment variables - example included
+
+```sh
+  npm install
+```
+
+| user  | password |
+| ----- | -------- |
+| user1 | 12345    |
+| user2 | 12345    |
+| user3 | 12345    |
+| user4 | 12345    |
+
+The menu acts as a login screen if you're not logged in. Above are possible users. **note the 5
+character password**
 
 <!-- USAGE EXAMPLES -->
 
-## Usage
+## Tech stack
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code
-examples and demos work well in this space. You may also link to more resources.
-
-```sh
-  npm install npm@latest -g
-```
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+Fitness verden uses Next.js for server-side rendering and routing, TypeScript for static typing,
+React Query for fetching data, React Hook Form for form handling, Tailwind CSS for styling,
+PocketBase as backend, and Zod for data validation.
 
 ### Built With
 
-- [![Next][Next.js]][Next-url]
-- [![React][React.js]][React-url]
-- [![Vue][Vue.js]][Vue-url]
-- [![Angular][Angular.io]][Angular-url]
-- [![Svelte][Svelte.dev]][Svelte-url]
-- [![Laravel][Laravel.com]][Laravel-url]
-- [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-- [![JQuery][JQuery.com]][JQuery-url]
+![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![React Query](https://img.shields.io/badge/-React%20Query-FF4154?style=for-the-badge&logo=react%20query&logoColor=white)
+![React Hook Form](https://img.shields.io/badge/React%20Hook%20Form-%23EC5990.svg?style=for-the-badge&logo=reacthookform&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Pocketbase](https://img.shields.io/badge/PocketBase-B8DBE4?style=for-the-badge&logo=PocketBase&logoColor=white)
+![Zod Badge](https://img.shields.io/badge/Zod-3E67B1?logo=zod&logoColor=fff&style=for-the-badge)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -121,33 +104,67 @@ examples and demos work well in this space. You may also link to more resources.
 
 ## Next.js
 
-If you have a suggestion that would make this better, please fork the repo and create a pull
-request. You can also simply open an issue with the tag "enhancement". Don't forget to give the
-project a star! Thanks again!
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+Next.js is a React framework that enables server-side rendering, static site generation, and routing
+out of the box.
 
 ## Tanstack Query/React-query
 
-If you have a suggestion that would make this better, please fork the repo and create a pull
-request. You can also simply open an issue with the tag "enhancement". Don't forget to give the
-project a star! Thanks again!
+Simplifies data fetching and caching, contains tools to ease the art of querying and errorhandling.
+Although you do need a couple of extra steps to utlize Tanstack Query in a server environment, it's
+well worth it.
 
 ## React-hook-form
 
-If you have a suggestion that would make this better, please fork the repo and create a pull
-request. You can also simply open an issue with the tag "enhancement". Don't forget to give the
-project a star! Thanks again!
+React Hook Form is a library for building forms in React with easy-to-use hooks. It provides a
+straightforward approach to form validation, handling form submission, and managing form states.
 
 ## Zod
 
-If you have a suggestion that would make this better, please fork the repo and create a pull
-request. You can also simply open an issue with the tag "enhancement". Don't forget to give the
-project a star! Thanks again!
+Zod is a TypeScript schema declaration and validation library. It allows me to define data schemas
+and validate incoming data against those schemas, ensuring consistency and a central source of truth
+for the data types present in my application.
+
+```sh
+import { z } from "zod"
+
+export const AuthSchema = z.object({
+  username: z.string().min(1, { message: "Username required" }),
+  password: z.string().min(5, { message: "Password has to be atleast 5 characters" }),
+})
+
+export type AuthSchemaTypes = z.infer<typeof AuthSchema>
+```
+
+First i define my schema, in this case i'm doing a login authentication with username and password
+so i'm naming it AuthSchema. I plan on passing an object containing a username and password
+therefore the z.object. First username, should be a string with min 1 character (just a way of
+saying, it cant be empty), and a message incase the criteria isn't met. The same is done for
+password, which should contain atleast 5 characters.
+
+zod has the ability to infer the types based on the Schema which i've done at the end, i export it
+so i can use the types all over my project, like the auth form.
+
+Zod can do so much more, but this is the structure of a login schema, note that a register schema
+would look different. I.e. passwordConfirm in addition to password and a refine method.
+
+```sh
+export const RegisterAuthSchema = z.object({
+    email: z.string().min(5, {message: "Email should be at least 5 characters long",}).email(),
+    password: z.string().min(5, {message: "password must be atleast 5 characters long",}),
+    passwordConfirm: z.string(),
+})
+  .refine((data) => data.password === data.passwordConfirm, {
+    message: "passwords do not match",
+    path: ["passwordConfirm"],
+  });
+
+export type RegisterAuthTypes = z.infer<typeof RegisterAuthSchema>;
+```
+
+## Tailwind
+
+Tailwind CSS is a utility-first CSS framework that provides a set of pre-defined utility classes to
+style my components. It allow me to quickly build custom designs without writing CSS from scratch.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -155,58 +172,14 @@ project a star! Thanks again!
 
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
-
-Project Link:
-[https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
+Khend Pauner - find my contactinfo in the rts schedules app
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[contributors-shield]:
-  https://img.shields.io/github/contributors/github_username/repo_name.svg?style=for-the-badge
-[contributors-url]: https://github.com/github_username/repo_name/graphs/contributors
-[forks-shield]:
-  https://img.shields.io/github/forks/github_username/repo_name.svg?style=for-the-badge
-[forks-url]: https://github.com/github_username/repo_name/network/members
-[stars-shield]:
-  https://img.shields.io/github/stars/github_username/repo_name.svg?style=for-the-badge
-[stars-url]: https://github.com/github_username/repo_name/stargazers
-[issues-shield]:
-  https://img.shields.io/github/issues/github_username/repo_name.svg?style=for-the-badge
-[issues-url]: https://github.com/github_username/repo_name/issues
-[license-shield]:
-  https://img.shields.io/github/license/github_username/repo_name.svg?style=for-the-badge
-[license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt
-[linkedin-shield]:
-  https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/linkedin_username
-[product-screenshot]: images/screenshot.png
-[Next.js]:
-  https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
-[Next-url]: https://nextjs.org/
-[React.js]:
-  https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
-[React-url]: https://reactjs.org/
-[Vue.js]:
-  https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
-[Vue-url]: https://vuejs.org/
-[Angular.io]:
-  https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
-[Angular-url]: https://angular.io/
-[Svelte.dev]:
-  https://img.shields.io/badge/Svelte-4A4A55?style=for-the-badge&logo=svelte&logoColor=FF3E00
-[Svelte-url]: https://svelte.dev/
-[Laravel.com]:
-  https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
-[Laravel-url]: https://laravel.com
-[Bootstrap.com]:
-  https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
-[Bootstrap-url]: https://getbootstrap.com
-[JQuery.com]:
-  https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
-[JQuery-url]: https://jquery.com
+[product-screenshot]:
+  https://65c3e3b565c172184a802299--quiet-licorice-a74f42.netlify.app/repo-fitnessverden-img.png
 
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/TNGAV1oz)
