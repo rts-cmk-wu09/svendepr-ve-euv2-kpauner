@@ -5,7 +5,7 @@ import Header from "@/components/header"
 export default function UserSchedulePage({ params }: { params: { userid: string } }) {
   return (
     <>
-      <Header title="My Schedule" back={true} />
+      <Header title="My Schedule" />
       {params.userid}
       <MyClasses id={params.userid} />
     </>

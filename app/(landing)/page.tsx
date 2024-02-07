@@ -15,7 +15,7 @@ export default function Home() {
       </section>
       <div className="flex h-[48vh] flex-col items-center justify-end bg-welcome-center bg-[length:700px] bg-top">
         <Button size="lg" className="mb-8 w-44 font-semibold uppercase tracking-wider text-black">
-          <Link href="/login">Start training</Link>
+          <Link href="/classes">Start training</Link>
         </Button>
       </div>
     </div>

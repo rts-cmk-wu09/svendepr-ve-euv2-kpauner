@@ -12,9 +12,9 @@ export default function Ratings({ averageRating, className }: RatingsProps) {
     <>
       {[...Array(5)].map((_, i) => {
         return i < averageRating ? (
-          <Icons.star key={i} className={cn("h-4", className)} /> // full star
+          <Icons.star key={i} className={cn("h-4", className)} />
         ) : (
-          <Icons.star key={i} className="h-4 opacity-30" /> // empty star
+          <Icons.star key={i} className="h-4 opacity-30" />
         )
       })}
     </>

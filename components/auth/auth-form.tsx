@@ -1,20 +1,12 @@
 "use client"
-import React, { useEffect } from "react"
+import React, { useState, useTransition } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import * as z from "zod"
+import { SubmitHandler, useForm } from "react-hook-form"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import pb from "@/lib/pocketbase"
 import { Icons } from "../icons"
-import { usePathname, useRouter } from "next/navigation"
-
-const AuthSchema = z.object({
-  username: z.string().min(1, { message: "Username required" }),
-  password: z.string().min(5, { message: "Password has to be atleast 5 characters" }),
-})
-
-type AuthSchemaType = z.infer<typeof AuthSchema>
+import { AuthSchema, AuthSchemaType } from "@/types/auth"
 
 export default function AuthForm() {
   const {
@@ -27,19 +19,13 @@ export default function AuthForm() {
   })
 
   async function onSubmit(values: AuthSchemaType) {
-    console.log(values)
-    const authData = await pb.collection("users").authWithPassword(values.username, values.password)
-
-    console.log(authData)
-  }
-
-  const router = useRouter()
-  const authStatus = pb.authStore.isValid
-  useEffect(() => {
-    if (authStatus) {
-      router.push("/classes")
+    await pb.collection("users").authWithPassword(values.username, values.password)
+    if (errors.username || errors.password) {
+      setError("username", { message: "Invalid username or password" })
+      setError("password", { message: "Invalid username or password" })
     }
-  }, [authStatus, router])
+    window.location.reload()
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
