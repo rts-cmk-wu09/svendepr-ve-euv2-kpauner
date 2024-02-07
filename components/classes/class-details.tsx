@@ -1,29 +1,33 @@
 "use client"
 import React from "react"
-import { Icons } from "../icons"
 import { getClassById, getRatingById } from "@/lib/queries"
+import pb from "@/lib/pocketbase"
+import { calculateRating } from "@/lib/utils"
 import { useQuery } from "@tanstack/react-query"
 import Bounded from "../global/bounded"
 import Ratings from "../global/ratings"
 import { Button } from "../ui/button"
-import Link from "next/link"
+import { Icons } from "../icons"
 import Image from "next/image"
-import pb from "@/lib/pocketbase"
-import { calculateRating } from "@/lib/utils"
+import SignupClassButton from "./signup-class-button"
 
 export default function ClassDetails({ id }: { id: string }) {
-  const { data, isLoading } = useQuery({
+  const { data } = useQuery({
     queryKey: ["class-by-id", { id }],
     queryFn: getClassById,
   })
 
-  const { data: ratings } = useQuery({
+  const { data: ratings, isLoading } = useQuery({
     queryKey: ["ratings", { id }],
     queryFn: getRatingById,
   })
 
-  if (!data) {
-    return <div>Class not found</div>
+  if (isLoading || !data) {
+    return (
+      <div className="flex h-full items-center justify-center">
+        <Icons.spinner className="block h-8 w-8" />
+      </div>
+    )
   }
 
   const classdetails = data[0]
@@ -31,14 +35,6 @@ export default function ClassDetails({ id }: { id: string }) {
   let averageRating = 0
   if (ratings) {
     averageRating = calculateRating(ratings)
-  }
-
-  if (isLoading) {
-    return (
-      <div className="flex h-full items-center justify-center">
-        <Icons.spinner className="block h-8 w-8" />
-      </div>
-    )
   }
 
   return (
@@ -86,14 +82,14 @@ export default function ClassDetails({ id }: { id: string }) {
               <h3 className="pl-6 pt-6 font-bold">{classdetails.expand.trainerId.name}</h3>
             </div>
           </section>
-          {pb.authStore.isValid && (
-            <Button
-              size="lg"
-              className="mb-8 w-full font-semibold uppercase tracking-wider text-black"
-            >
-              <Link href="/login">Sign up</Link>
-            </Button>
-          )}
+
+          {pb.authStore.isValid && pb.authStore.model !== null ? (
+            <SignupClassButton
+              classId={classdetails.id}
+              userId={pb.authStore.model.id}
+              classDay={classdetails.classDay}
+            />
+          ) : null}
         </Bounded>
       </div>
     </>
