@@ -69,12 +69,14 @@ export default function Header({ title, arrow, burgerstyles }: HeaderProps) {
   return (
     <header className="z-10 px-4 pb-8 pt-12">
       <div className="flex items-center justify-between">
-        {pathName !== "/classes" && (
-          <Link href="/classes">
-            <ArrowLeft className={cn("stroke-black", arrow)} />
-          </Link>
-        )}
-        {title && <h1 className="text-2xl tracking-tight text-black">{title}</h1>}
+        <div className="flex items-center gap-4">
+          {pathName !== "/classes" && (
+            <Link href="/classes">
+              <ArrowLeft className={cn("stroke-secondary", arrow)} />
+            </Link>
+          )}
+          {title && <h1 className="text-2xl tracking-tight text-black">{title}</h1>}
+        </div>
         <nav className="relative z-40 flex">
           <motion.button
             animate={toggleNav ? "open" : "closed"}

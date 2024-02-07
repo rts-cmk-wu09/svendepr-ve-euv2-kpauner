@@ -29,7 +29,7 @@ export default function SignupClassButton({ classId, userId, classDay }: SignupC
   const signedUpClassId = signedUpSchedule ? signedUpSchedule.id : ""
 
   const findDay = schedules?.some((schedule) => schedule.expand.classId.classDay === classDay)
-  console.log("Woot", findDay)
+
   if (findDay && signedUpSchedule === undefined) {
     return (
       <Button
