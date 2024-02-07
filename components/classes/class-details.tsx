@@ -1,5 +1,5 @@
 "use client"
-import React from "react"
+import React, { useEffect } from "react"
 import { getClassById, getRatingById } from "@/lib/queries"
 import pb from "@/lib/pocketbase"
 import { calculateRating } from "@/lib/utils"
@@ -10,8 +10,27 @@ import { Button } from "../ui/button"
 import { Icons } from "../icons"
 import Image from "next/image"
 import SignupClassButton from "./signup-class-button"
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { Rating } from "@/types/ratings"
+import { useForm } from "react-hook-form"
 
 export default function ClassDetails({ id }: { id: string }) {
+  const [averageRating, setAverageRating] = React.useState(0)
+  const [sliderValue, setSliderValue] = React.useState(0)
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm()
+
   const { data } = useQuery({
     queryKey: ["class-by-id", { id }],
     queryFn: getClassById,
@@ -22,7 +41,12 @@ export default function ClassDetails({ id }: { id: string }) {
     queryFn: getRatingById,
   })
 
-  if (isLoading || !data) {
+  useEffect(() => {
+    const calculatedRating = calculateRating(ratings as Rating[])
+    setAverageRating(calculatedRating)
+  }, [ratings])
+
+  if (isLoading || !data || !ratings) {
     return (
       <div className="flex h-full items-center justify-center">
         <Icons.spinner className="block h-8 w-8" />
@@ -32,9 +56,37 @@ export default function ClassDetails({ id }: { id: string }) {
 
   const classdetails = data[0]
 
-  let averageRating = 0
-  if (ratings) {
-    averageRating = calculateRating(ratings)
+  const handleSliderChange = (event: any) => {
+    setAverageRating(event.target.value)
+    setSliderValue(event.target.value)
+  }
+  const userId = pb.authStore.model?.id
+  const userRating = ratings.find((rating) => rating.userId === userId)
+  console.log("DATA", userRating?.id, classdetails.id, userId, averageRating)
+
+  async function onSubmit() {
+    try {
+      if (!userRating) {
+        const data = {
+          classId: classdetails.id,
+          userId: userId,
+          rating: sliderValue as number,
+        }
+        await pb.collection("ratings").create(data)
+      } else {
+        const data = {
+          classId: classdetails.id,
+          userId: userId,
+          rating: sliderValue as number,
+        }
+        const results = await pb.collection("ratings").update(userRating.id, data)
+
+        return console.log("RESULTS", results)
+      }
+    } catch (error) {
+      console.error("Error updating rating", error)
+    }
+    // window.location.reload()
   }
 
   return (
@@ -55,9 +107,45 @@ export default function ClassDetails({ id }: { id: string }) {
                 <Ratings averageRating={averageRating} className="fill-primary" />
               </div>
               <div>
-                <Button size="lg" variant="outline" className="w-24 uppercase">
-                  Rate
-                </Button>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button size="lg" variant="outline" className="w-24 uppercase">
+                      Rate
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-sm space-y-4 rounded-xl py-8">
+                    <DialogHeader>
+                      <DialogTitle className="text-sm">
+                        Rate the {classdetails.className} class
+                      </DialogTitle>
+
+                      <div className="flex flex-col items-center justify-center space-y-2 pt-4">
+                        <div className="flex items-center justify-center">
+                          <Ratings averageRating={averageRating} className="fill-primary" />
+                        </div>
+                        <div>your rating {averageRating}/5</div>
+                      </div>
+                    </DialogHeader>
+                    <div>
+                      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                        <input
+                          {...register("averageRating")}
+                          type="range"
+                          min="0"
+                          max="5"
+                          value={averageRating}
+                          onChange={handleSliderChange}
+                          className="slider w-full bg-amber-500"
+                        />
+                        <DialogFooter>
+                          <Button className="uppercase" type="submit">
+                            {isSubmitting ? <Icons.spinner /> : "Submit"}
+                          </Button>
+                        </DialogFooter>
+                      </form>
+                    </div>
+                  </DialogContent>
+                </Dialog>
               </div>
             </div>
           </div>
