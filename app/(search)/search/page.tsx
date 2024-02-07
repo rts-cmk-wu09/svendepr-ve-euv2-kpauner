@@ -15,6 +15,7 @@ export default function SearchPage() {
   const {
     register,
     setError,
+    clearErrors,
     formState: { errors },
   } = useForm()
 
@@ -32,8 +33,10 @@ export default function SearchPage() {
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.value) {
-      return setSearchResults([])
+      setSearchResults([])
+      clearErrors("query")
     } else {
+      clearErrors("query")
       const results = courses.filter(
         (course) =>
           course.className.toLowerCase().includes(e.target.value.toLowerCase()) ||
@@ -42,15 +45,13 @@ export default function SearchPage() {
       if (results.length === 0) {
         setError("query", {
           type: "manual",
-          message: "No results found",
+          message: "Your search did not return any results. Try to search for something else.",
         })
       }
       setSearchResults(results)
     }
-
-    console.log("VAL", e.target.value)
   }
-  console.log("COURSES", courses)
+
   return (
     <div>
       <Header title="Search" />
@@ -64,7 +65,7 @@ export default function SearchPage() {
               }}
               placeholder="Search classes"
             />
-            {errors.query?.message && <p>{errors.query?.message}</p>}
+            {errors.query && <p>{errors.query.message as string}</p>}
           </form>
         </Bounded>
       </section>
@@ -72,11 +73,21 @@ export default function SearchPage() {
       {searchResults.length === 0 ? (
         <SearchInitial courses={courses} />
       ) : (
-        searchResults.map((course) => (
-          <div key={course.id} className="bg-gray-400 p-2">
-            {course.className}
-          </div>
-        ))
+        <Bounded className="flex flex-col gap-4 pt-8">
+          {searchResults.map((course) => (
+            <div
+              style={{
+                backgroundImage: `url(${process.env.NEXT_PUBLIC_PB_URL}/api/files/${course.collectionId}/${course.id}/${course.assetId})`,
+              }}
+              key={course.id}
+              className="h-12 overflow-hidden rounded-lg bg-secondary/10 bg-cover bg-center"
+            >
+              <span className="flex h-full max-w-fit items-center rounded-tr-xl bg-primary px-6 font-bold">
+                {course.className}
+              </span>
+            </div>
+          ))}
+        </Bounded>
       )}
     </div>
   )
