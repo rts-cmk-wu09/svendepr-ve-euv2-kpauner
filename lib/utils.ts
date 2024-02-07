@@ -7,11 +7,21 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function calculateRating(ratings: Rating[]) {
-  if (ratings.length === 0) {
+  if (!Array.isArray(ratings) || ratings.length === 0) {
     return 0
   }
+
   let averageRating = 0
-  return (averageRating = Math.round(
+  return (averageRating = Math.ceil(
     ratings.reduce((sum, rating) => sum + (rating.rating || 0), 0) / ratings.length,
   ))
 }
+// export function calculateRating(ratings: Rating[]) {
+//   if (ratings.length === 0) {
+//     return 0
+//   }
+//   let averageRating = 0
+//   return (averageRating = Math.round(
+//     ratings.reduce((sum, rating) => sum + (rating.rating || 0), 0) / ratings.length,
+//   ))
+// }
