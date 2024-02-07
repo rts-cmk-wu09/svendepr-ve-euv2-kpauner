@@ -5,10 +5,8 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/github_username/repo_name">
-    <img src="https://65c3e3b565c172184a802299--quiet-licorice-a74f42.netlify.app/logo.png" alt="Logo" width="80" height="80">
-  </a>
-
+    <img src="https://raw.githubusercontent.com/rts-cmk-wu09/svendepr-ve-euv2-kpauner/master/public/logo.png" alt="Logo" width="80" height="80"/>
+    
 <h3 align="center">Fitness verden</h3>
 
   <p align="center">
@@ -41,7 +39,7 @@
 
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+![Product Name Screen Shot][product-screenshot]
 
 Fitness Verden is a small chain of fitness centers that is undergoing a major expansion. The company
 wants to offer their customers a digital experience that will help them increase enrollment in their
@@ -171,6 +169,6 @@ Khend Pauner - find my contactinfo in the rts schedules app
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
 [product-screenshot]:
-  https://65c3e3b565c172184a802299--quiet-licorice-a74f42.netlify.app/repo-fitnessverden-img.png
+  https://raw.githubusercontent.com/rts-cmk-wu09/svendepr-ve-euv2-kpauner/master/public/repo-fitnessverden-img.png
 
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/TNGAV1oz)
