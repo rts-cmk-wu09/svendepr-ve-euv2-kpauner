@@ -123,7 +123,7 @@ export default function Header({ title, arrow, burgerstyles }: HeaderProps) {
             ))}
             <motion.span variants={items}>
               <Link
-                href={href}
+                href={`${origin}/${href}`}
                 onClick={() => setToggleNav()}
                 className="duration-600 block text-center text-3xl uppercase tracking-tight text-black transition-colors hover:text-neutral-500 md:text-5xl"
               >
