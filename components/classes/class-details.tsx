@@ -86,7 +86,7 @@ export default function ClassDetails({ id }: { id: string }) {
     } catch (error) {
       console.error("Error updating rating", error)
     }
-    // window.location.reload()
+    window.location.reload()
   }
 
   return (
@@ -127,7 +127,7 @@ export default function ClassDetails({ id }: { id: string }) {
                       </div>
                     </DialogHeader>
                     <div>
-                      {userId ? (
+                      {pb.authStore.isValid ? (
                         <>
                           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                             <input
