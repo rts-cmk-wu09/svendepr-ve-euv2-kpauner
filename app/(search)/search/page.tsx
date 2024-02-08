@@ -8,6 +8,7 @@ import Header from "@/components/header"
 import Bounded from "@/components/global/bounded"
 import { Class } from "@/types/classes"
 import SearchInitial from "@/components/search/search-initial"
+import Link from "next/link"
 
 export default function SearchPage() {
   const [courses, setCourses] = useState<Class[]>([])
@@ -40,7 +41,8 @@ export default function SearchPage() {
       const results = courses.filter(
         (course) =>
           course.className.toLowerCase().includes(e.target.value.toLowerCase()) ||
-          course.classDescription.toLowerCase().includes(e.target.value.toLowerCase()),
+          course.classDescription.toLowerCase().includes(e.target.value.toLowerCase()) ||
+          course.classDay.toLowerCase().includes(e.target.value.toLowerCase()),
       )
       if (results.length === 0) {
         setError("query", {
@@ -75,17 +77,18 @@ export default function SearchPage() {
       ) : (
         <Bounded className="flex flex-col gap-4 pt-8">
           {searchResults.map((course) => (
-            <div
+            <Link
+              href={`/classes/${course.id}`}
+              key={course.id}
               style={{
                 backgroundImage: `url(${process.env.NEXT_PUBLIC_PB_URL}/api/files/${course.collectionId}/${course.id}/${course.assetId})`,
               }}
-              key={course.id}
               className="h-12 overflow-hidden rounded-lg bg-secondary/10 bg-cover bg-center"
             >
               <span className="flex h-full max-w-fit items-center rounded-tr-xl bg-primary px-6 font-bold">
                 {course.className}
               </span>
-            </div>
+            </Link>
           ))}
         </Bounded>
       )}
