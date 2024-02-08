@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect } from "react"
-import { getClassById, getRatingById } from "@/lib/queries"
 import pb from "@/lib/pocketbase"
+import { getClassById, getRatingById } from "@/lib/queries"
 import { calculateRating } from "@/lib/utils"
 import { useQuery } from "@tanstack/react-query"
 import Bounded from "../global/bounded"
@@ -123,26 +123,34 @@ export default function ClassDetails({ id }: { id: string }) {
                         <div className="flex items-center justify-center">
                           <Ratings averageRating={averageRating} className="fill-primary" />
                         </div>
-                        <div>your rating {averageRating}/5</div>
+                        <p className="pt-1 text-sm">Rating {averageRating}/5</p>
                       </div>
                     </DialogHeader>
                     <div>
-                      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                        <input
-                          {...register("averageRating")}
-                          type="range"
-                          min="0"
-                          max="5"
-                          value={averageRating}
-                          onChange={handleSliderChange}
-                          className="slider w-full bg-amber-500"
-                        />
-                        <DialogFooter>
-                          <Button className="uppercase" type="submit">
-                            {isSubmitting ? <Icons.spinner /> : "Submit"}
-                          </Button>
-                        </DialogFooter>
-                      </form>
+                      {userId ? (
+                        <>
+                          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                            <input
+                              {...register("averageRating")}
+                              type="range"
+                              min="0"
+                              max="5"
+                              value={averageRating}
+                              onChange={handleSliderChange}
+                              className="slider w-full bg-amber-500"
+                            />
+                            <DialogFooter>
+                              <Button className="uppercase" type="submit">
+                                {isSubmitting ? <Icons.spinner /> : "Submit"}
+                              </Button>
+                            </DialogFooter>
+                          </form>
+                        </>
+                      ) : (
+                        <p className="text-center text-slate-500">
+                          You need to be logged in to rate
+                        </p>
+                      )}
                     </div>
                   </DialogContent>
                 </Dialog>
